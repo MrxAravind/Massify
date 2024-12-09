@@ -175,7 +175,7 @@ def scrape_index(page: int) -> List[str]:
         logger.error(f"Error scraping index page {page}: {e}")
         return []
 
-def main():
+def fetch_main():
     """
     Main function to run the scraper
     """

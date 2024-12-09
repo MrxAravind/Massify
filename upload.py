@@ -1,4 +1,10 @@
 import json
+from pyrogram import Client
+from scraper import *
+
+app = Client("Massify", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, workers=10)
+
+
 
 def print_structure(file_path):
     with open(file_path, 'r') as file:
@@ -20,5 +26,7 @@ def print_structure(file_path):
             print(f"  {key}: {value}")
         print("=" * 40)
 
-# Example usage
-print_structure('data.json')
+
+if __name__ == "__main__":
+    logging.info("Bot Started...")
+    app.run(main())

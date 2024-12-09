@@ -182,13 +182,11 @@ def main():
     all_results = []
     
     try:
-        for page in range(1, 3):
+        for page in range(1, 20):
             page_results = scrape_index(page)
             all_results.extend(page_results)
         
         # Optional: Save results to a file or process further
-        with open("links.txt","w+") as f:
-            f.write("\n\n".join(all_results))
         logger.info(f"Total results collected: {len(all_results)}")
     
     except Exception as e:

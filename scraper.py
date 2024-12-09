@@ -191,6 +191,7 @@ def main():
         with open('data.json', 'w') as f:
             json.dump(all_results, f)
         logger.info(f"Total results collected: {len(all_results)}")
+        return all_results
     
     except Exception as e:
         logger.error(f"Unexpected error in main function: {e}")

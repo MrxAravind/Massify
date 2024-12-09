@@ -187,6 +187,7 @@ def main():
             all_results.extend(page_results)
         
         # Optional: Save results to a file or process further
+        logger.info(all_results)
         logger.info(f"Total results collected: {len(all_results)}")
     
     except Exception as e:

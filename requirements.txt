@@ -1,2 +1,7 @@
 bs4
 requests
+git+https://github.com/Hrishi2861/pyrofork-2.2.11-peer-fix.git
+python-dotenv
+TgCrypto
+yt-dlp
+aria2p

@@ -1,15 +1,21 @@
 import json
 from pyrogram import Client
 from scraper import *
+from config import *
+from database import *
+
+
+
+database_name = "Spidydb"
+db = connect_to_mongodb(DATABASE, database_name)
+collection_name = COLLECTION_NAME
+
 
 app = Client("Massify", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, workers=10)
 
 
 
-def print_structure(file_path):
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-    
+def print_structure(data):
     for item in data:
         print(f"URL: {item.get('url')}")
         print("Songs:")
@@ -25,6 +31,20 @@ def print_structure(file_path):
         for key, value in movie_info.items():
             print(f"  {key}: {value}")
         print("=" * 40)
+
+
+
+async def main():
+    async with app:
+        if check_db(db, collection_name, url):
+            data = fetch_main()
+        print_structure(data)
+        await app.send_audio(LOG_ID, audio=local_path)
+        insert_document(db, collection_name, result)
+                        
+
+
+        
 
 
 if __name__ == "__main__":

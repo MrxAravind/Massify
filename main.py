@@ -4,6 +4,7 @@ import logging
 from typing import List, Dict, Optional
 import time
 from urllib.parse import urljoin
+import json
 
 # Configure logging
 logging.basicConfig(
@@ -187,6 +188,8 @@ def main():
             all_results.extend(page_results)
         
         # Optional: Save results to a file or process further
+        with open('data.json', 'w') as f:
+            json.dump(all_results, f)
         logger.info(f"Total results collected: {len(all_results)}")
     
     except Exception as e:

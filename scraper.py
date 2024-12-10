@@ -175,7 +175,7 @@ def scrape_index(page: int) -> List[str]:
         logger.error(f"Error scraping index page {page}: {e}")
         return []
 
-def fetch_main():
+def fetch_main(page):
     """
     Main function to run the scraper
     """
@@ -183,7 +183,7 @@ def fetch_main():
     all_results = []
     
     try:
-        for page in range(1, 2):
+        for page in range(page, page+1):
             page_results = scrape_index(page)
             all_results.extend(page_results)
         

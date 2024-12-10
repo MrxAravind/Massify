@@ -69,7 +69,7 @@ async def main():
                                movie_info = item.get("movie_info", {})
                                for key, value in movie_info.items():
                                     caption+= f"{key}: {value}\n"
-                               await app.send_audio(DUMP_ID,audio=file_name,caption=caption)
+                               await app.send_audio(DUMP_ID,audio=file_path,caption=caption)
                                result = item
                                insert_document(db, collection_name, result)
         except Exception as e:

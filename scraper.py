@@ -187,7 +187,6 @@ def fetch_main():
             page_results = scrape_index(page)
             all_results.extend(page_results)
         
-        # Optional: Save results to a file or process further
         with open('data.json', 'w') as f:
             json.dump(all_results, f)
         logger.info(f"Total results collected: {len(all_results)}")
@@ -197,4 +196,4 @@ def fetch_main():
         logger.error(f"Unexpected error in main function: {e}")
 
 if __name__ == "__main__":
-    main()
+    fetch_main()

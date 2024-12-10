@@ -21,7 +21,7 @@ async def main():
         data = fetch_main()
         for item in data:
            print(f"URL: {item.get('url')}")
-           if check_db(db, collection_name, item.get('url')):
+           if not check_db(db, collection_name, item.get('url')):
               for song in item.get("songs", []):
                  for download in song.get("download_links", []):
                       print(f"{song.get('name')} - Quality: {download.get('quality')} - {song.get('song_link')}")

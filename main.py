@@ -72,7 +72,7 @@ async def main():
                                     caption+= f"{key}: {value}\n"
                                if not sthumb:
                                    thumb = f"{song.get('name')}thumb.png"
-                                   os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
+                                   os.system(f"""ffmpeg -i "{file_path}" -an -c:v copy "{thumb}" > ffmpeglog.txt """)
                                    await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
                                    sthumb = True
                                cap = f"{song.get('name')}\nQuality: {download.get('quality')}"

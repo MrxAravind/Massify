@@ -69,11 +69,13 @@ async def main():
                                movie_info = item.get("movie_info", {})
                                for key, value in movie_info.items():
                                     caption+= f"{key}: {value}\n"
-                               os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{song.get('name')}thumb.png" > ffmpeglog.txt """)
-                               await app.send_document(DUMP_ID,document=file_path,caption=caption,thumb=f"{song.get('name')}thumb.png")
+                               thumb = f"{song.get('name')}thumb.png"
+                               os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
+                               await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
+                               await app.send_document(DUMP_ID,document=file_path,thumb=thumb)
                                result = item
                                insert_document(db, collection_name, result)
-                               os.remove(f"{song.get('name')}thumb.png")
+                               os.remove()
                                
         except Exception as e:
                print(f"Download error: {e}")

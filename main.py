@@ -70,8 +70,8 @@ async def main():
                                for key, value in movie_info.items():
                                     caption+= f"{key}: {value}\n"
                                await app.send_audio(DUMP_ID,audio=file_name,caption=caption)
-                              result = item
-                              insert_document(db, collection_name, result)
+                               result = item
+                               insert_document(db, collection_name, result)
         except Exception as e:
                print(f"Download error: {e}")
     

@@ -78,7 +78,7 @@ async def main():
                                cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
                                await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
                                result = item
-                               insert_document(db, collection_name, result)
+                      insert_document(db, collection_name, result)
                       os.remove(thumb)
                                
         except Exception as e:

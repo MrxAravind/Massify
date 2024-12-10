@@ -56,7 +56,7 @@ def find_documents(db, collection_name, query=None):
         print(f"Error: Could not retrieve documents.\n{e}")
         return []
 
-def check_db(db, collection_name, name):
+def check_db(db, collection_name, url):
     """
     Checks if a document with a specific name exists in the collection.
 
@@ -69,8 +69,8 @@ def check_db(db, collection_name, name):
     - bool: True if the document exists, otherwise False.
     """
     documents = find_documents(db, collection_name)
-    names = [doc.get("NAME") for doc in documents]
-    return name in names 
+    urls = [doc.get("url") for doc in documents]
+    return url in urls 
 
 def get_info(db, collection_name, name):
     """

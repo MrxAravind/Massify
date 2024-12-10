@@ -73,7 +73,8 @@ async def main():
                                    thumb = f"{song.get('name')}thumb.png"
                                    os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
                                    await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
-                               await app.send_document(DUMP_ID,document=file_path,thumb=thumb)
+                               cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
+                               await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
                                result = item
                                insert_document(db, collection_name, result)
                                os.remove(thumb)

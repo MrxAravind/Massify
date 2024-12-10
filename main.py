@@ -55,7 +55,7 @@ def download_with_aria2c(url, output_dir=None, filename=None):
 async def main():
     async with app:
         try:
-             data = fetch_main()
+             data = fetch_main(page)
              for item in data:
                   print(f"URL: {item.get('url')}")
                   if not check_db(db, collection_name, item.get('url')):

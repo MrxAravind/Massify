@@ -59,6 +59,7 @@ async def main():
              for item in data:
                   print(f"URL: {item.get('url')}")
                   if not check_db(db, collection_name, item.get('url')):
+                      sthumb = False
                       for song in item.get("songs", []):
                            for download in song.get("download_links", []):
                                print(f"{song.get('name')} - Quality: {download.get('quality')} - {song.get('song_link')}")
@@ -69,10 +70,11 @@ async def main():
                                movie_info = item.get("movie_info", {})
                                for key, value in movie_info.items():
                                     caption+= f"{key}: {value}\n"
-                               if not thumb:
+                               if not sthumb:
                                    thumb = f"{song.get('name')}thumb.png"
                                    os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
                                    await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
+                                   sthumb = True
                                cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
                                await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
                                result = item

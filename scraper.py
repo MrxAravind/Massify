@@ -110,7 +110,7 @@ def extract_movie_info(url: str) -> Dict[str, str]:
                 return default
 
         movie_info = {
-            "Poster Caption": poster_caption_text,
+            "Movie": poster_caption_text.replace(" Poster",""),
             "Starring": safe_extract(lambda: fieldset.find('a', href=lambda x: x and '/artist/' in x)),
             "Music": safe_extract(lambda: fieldset.find('a', href=lambda x: x and '/music/' in x)),
             "Director": safe_extract(lambda: fieldset.find('b', string="Director:").next_sibling),

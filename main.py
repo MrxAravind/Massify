@@ -73,6 +73,8 @@ async def main():
                                await app.send_document(DUMP_ID,document=file_path,caption=caption,thumb=f"{song.get('name')}thumb.png")
                                result = item
                                insert_document(db, collection_name, result)
+                               os.remove(f"{song.get('name')}thumb.png")
+                               
         except Exception as e:
                print(f"Download error: {e}")
     

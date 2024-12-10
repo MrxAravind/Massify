@@ -55,32 +55,38 @@ def download_with_aria2c(url, output_dir=None, filename=None):
 async def main():
     async with app:
         try:
-             data = fetch_main(page)
-             for item in data:
-                  print(f"URL: {item.get('url')}")
-                  if not check_db(db, collection_name, item.get('url')):
-                      sthumb = False
-                      for song in item.get("songs", []):
-                           for download in song.get("download_links", []):
-                               print(f"{song.get('name')} - Quality: {download.get('quality')} - {song.get('song_link')}")
-                               print("Downloading....")
-                               file_path = download_with_aria2c(download.get('url'))
-                               print(f"File downloaded successfully to: {file_path}")
-                               caption = "Metadata: \n"
-                               movie_info = item.get("movie_info", {})
-                               for key, value in movie_info.items():
-                                    caption+= f"{key}: {value}\n"
-                               if not sthumb:
-                                   thumb = f"{song.get('name')}thumb.png"
-                                   os.system(f"""ffmpeg -i "{file_path}" -an -c:v copy "{thumb}" > ffmpeglog.txt """)
-                                   await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
-                                   sthumb = True
-                               cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
-                               await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
-                               result = item
-                      insert_document(db, collection_name, result)
-                      os.remove(thumb)
-                               
+            page = 1
+            while True:
+                 data = fetch_main(page)
+                 if len(data) == 10:
+                     for item in data:
+                         print(f"URL: {item.get('url')}")
+                         if not check_db(db, collection_name, item.get('url')):
+                            sthumb = False
+                            for song in item.get("songs", []):
+                                for download in song.get("download_links", []):
+                                    print(f"{song.get('name')} - Quality: {download.get('quality')} - {song.get('song_link')}")
+                                    print("Downloading....")
+                                    file_path = download_with_aria2c(download.get('url'))
+                                    print(f"File downloaded successfully to: {file_path}")
+                                    caption = "Metadata: \n"
+                                    movie_info = item.get("movie_info", {})
+                                    for key, value in movie_info.items():
+                                        caption+= f"{key}: {value}\n"
+                                    if not sthumb:
+                                        thumb = f"{song.get('name')}thumb.png"
+                                        os.system(f"""ffmpeg -i "{file_path}" -an -c:v copy "{thumb}" > ffmpeglog.txt """)
+                                        await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
+                                        sthumb = True
+                                    cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
+                                    await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
+                                    result = item
+                            insert_document(db, collection_name, result)
+                            os.remove(thumb)        
+                            page+=1   
+                 else:
+                   print("Must Have Reached The End. Waiting for One Hour to Refresh......")
+                   time.sleep(3600)
         except Exception as e:
                print(f"Download error: {e}")
     

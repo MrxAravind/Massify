@@ -183,7 +183,7 @@ def fetch_main():
     all_results = []
     
     try:
-        for page in range(1, 5):
+        for page in range(1, 2):
             page_results = scrape_index(page)
             all_results.extend(page_results)
         

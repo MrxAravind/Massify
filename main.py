@@ -69,9 +69,10 @@ async def main():
                                movie_info = item.get("movie_info", {})
                                for key, value in movie_info.items():
                                     caption+= f"{key}: {value}\n"
-                               thumb = f"{song.get('name')}thumb.png"
-                               os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
-                               await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
+                               if not thumb:
+                                   thumb = f"{song.get('name')}thumb.png"
+                                   os.system(f"""ffmpeg -i {file_path} -an -c:v copy "{thumb}" > ffmpeglog.txt """)
+                                   await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
                                await app.send_document(DUMP_ID,document=file_path,thumb=thumb)
                                result = item
                                insert_document(db, collection_name, result)

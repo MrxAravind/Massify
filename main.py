@@ -79,7 +79,7 @@ async def main():
                                         await app.send_photo(DUMP_ID,photo=thumb,caption=caption)
                                         sthumb = True
                                     cap = f"{song.get('name')}\nQuality: {download.get('quality')}"
-                                    await app.send_document(DUMP_ID,document=file_path,caption=cap,thumb=thumb)
+                                    await app.send_audio(DUMP_ID,audio=file_path,caption=cap,thumb=thumb)
                                     result = item
                             insert_document(db, collection_name, result)
                             os.remove(thumb)        

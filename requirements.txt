@@ -3,3 +3,5 @@ requests
 pyrofork
 tgcrypto
 python-dotenv
+aria2
+static_ffmpeg

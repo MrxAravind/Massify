@@ -7,6 +7,9 @@ import os
 import subprocess
 import tempfile
 import asyncio
+import static_ffmpeg
+
+
 
 database_name = "Spidydb"
 db = connect_to_mongodb(DATABASE, database_name)
@@ -16,6 +19,8 @@ collection_name = COLLECTION_NAME
 app = Client("Massify", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, workers=10)
 
 
+
+static_ffmpeg.add_paths()
 
 
 def download_with_aria2c(url, output_dir=None, filename=None):
